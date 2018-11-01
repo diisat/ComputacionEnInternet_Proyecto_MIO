@@ -11,4 +11,5 @@ public interface IRutasLogic {
 	public boolean actualizarRuta(Tmio1Ruta ruta);
 	public boolean borrarRuta(Tmio1Ruta ruta);
 	public List<Tmio1Ruta> buscarRutaRango(BigDecimal diaInicio, BigDecimal diaFin);
+	public Tmio1Ruta buscarPorId(Integer id);
 }

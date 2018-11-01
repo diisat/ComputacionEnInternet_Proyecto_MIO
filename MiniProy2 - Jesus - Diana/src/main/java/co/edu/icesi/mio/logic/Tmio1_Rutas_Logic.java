@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.icesi.mio.dao.*;
 import co.edu.icesi.mio.dao.*;
+import co.edu.icesi.mio.model.Tmio1Conductore;
 import co.edu.icesi.mio.model.Tmio1Ruta;
 
 @Service
@@ -156,6 +157,16 @@ public class Tmio1_Rutas_Logic implements IRutasLogic {
 		}
 		
 	}
+
+
+	@Override
+	public Tmio1Ruta buscarPorId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
 
 
 }
