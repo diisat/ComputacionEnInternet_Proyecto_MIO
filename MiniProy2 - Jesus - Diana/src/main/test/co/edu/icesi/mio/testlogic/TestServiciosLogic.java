@@ -61,7 +61,7 @@ public class TestServiciosLogic {
 		//Rutas
 		Tmio1Ruta ruta= new Tmio1Ruta();
 		ruta.setActiva("S");
-		ruta.setDescripcion("ruta F a H");
+		ruta.setDescripcion("ruta F a H Es1");
 		ruta.setDiaInicio(new BigDecimal(1));
 		ruta.setDiaFin(new BigDecimal(7));
 		ruta.setHoraInicio(new BigDecimal(3));

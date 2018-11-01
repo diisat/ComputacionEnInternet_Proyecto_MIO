@@ -21,20 +21,14 @@ import co.edu.icesi.mio.model.Tmio1Conductore;
 import co.edu.icesi.mio.model.Tmio1Ruta;
 
 @Service
-@ContextConfiguration("/applicationContext.xml")
-@Rollback(false)
 public class Tmio1_Rutas_Logic implements IRutasLogic {
 	
-
-	EntityManagerFactory managerFactor = Persistence.createEntityManagerFactory("MiniProyectoComputacion");
 	
-	// atributos
 	@PersistenceContext
-//	 private EntityManager em;
-    private EntityManager em= managerFactor.createEntityManager();
+	private EntityManager em;
 	
 	@Autowired
-    private ITmio1_Rutas_DAO rutasDAO = new Tmio1_Rutas_DAO() ;
+    private ITmio1_Rutas_DAO rutasDAO;
 	
 	
 //	 el número de ruta tenga tres caracteres; el día inicio y fin sean numéricos
@@ -92,7 +86,6 @@ public class Tmio1_Rutas_Logic implements IRutasLogic {
 
 			
 			rutasDAO.save(em, ruta);
-			
 			
 			return true;
 		}else {
