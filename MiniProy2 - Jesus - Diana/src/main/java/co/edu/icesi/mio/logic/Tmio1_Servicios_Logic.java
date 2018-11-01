@@ -22,18 +22,11 @@ import co.edu.icesi.mio.model.Tmio1Servicio;
 
 
 @Service
-@ContextConfiguration("/applicationContext.xml")
-@Rollback(false)
 public class Tmio1_Servicios_Logic implements IServiciosLogic{
 	
 
-//EntityManagerFactory managerFactor = Persistence.createEntityManagerFactory("MiniProyectoComputacion");
-	
-	// atributos
 	@PersistenceContext
 	private EntityManager em;
-	
-//    private EntityManager em= managerFactor.createEntityManager();
 	
 	@Autowired
     private ITmio1_Servicios_DAO serviciosDAO ;
@@ -50,6 +43,12 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 	private ITmio1_Conductores_DAO conductoresDao;
 	
 
+	@Autowired
+	private IBusesLogic busesLogic;
+	@Autowired
+	private ICondutoresLogic conductoresLogic;
+	@Autowired
+	private IRutasLogic rutasLogic;
 	
 	public Tmio1Bus getBus(int id) {
 		busesDao=new Tmio1_Buses_DAO();
@@ -79,18 +78,26 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 		public boolean validarServicio(Tmio1Servicio servicio) {
 			//TODO
 			
-			//falta lo de la llaves foraneas
+			
 			boolean ret =false;
-			// validar llaves foraneas
-			if(servicio.getTmio1Bus()!=null) {
-				//validar fecha inicio y fin
-				if(servicio.getTmio1Ruta().getDiaFin()!=null) {
-					// validar bus y conductor esten disponibles
-					if(servicio.getTmio1Bus()!=null) {
-						ret=true;
-					}
-				}
+			//valida las llaves foraneas
+			if (busesLogic.validarBus(servicio.getTmio1Bus()) && conductoresLogic.validarConductor(servicio.getTmio1Conductore())
+					&& rutasLogic.validarRuta(servicio.getTmio1Ruta())) {
+		
+				// validar que el bus se encuantre disponible
 				
+				
+				
+				
+				//validar que el conductor se encuentre disponible
+				
+				
+						ret=true;
+					
+				
+				
+			
+			
 			}
 			return ret;
 		}
@@ -102,9 +109,7 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 			// falta hacer todas las validaciones
 			if(validarServicio(servicio)) {
 
-				em.getTransaction().begin();
 				serviciosDAO.save(em, servicio);
-				em.getTransaction().commit();
 				
 				return true;
 			}else {
@@ -121,9 +126,7 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 			// falta hacer todas las validaciones
 			if(validarServicio(servicio)) {
 
-				em.getTransaction().begin();
 				serviciosDAO.update(em, servicio);
-				em.getTransaction().commit();
 				
 				return true;
 			}else {
@@ -140,9 +143,7 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 			// falta hacer todas las validaciones
 			if(validarServicio(servicio)) {
 
-				em.getTransaction().begin();
 				serviciosDAO.delete(em, servicio);
-				em.getTransaction().commit();
 				
 				return true;
 			}else {
@@ -159,9 +160,7 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 			// falta hacer todas las validaciones
 			if(fechaInicio!=null && fechaFin!=null) {
 
-				em.getTransaction().begin();
 				List<Tmio1Servicio> act= serviciosDAO.findByRangeOfDates(em, fechaInicio, fechaFin);
-				em.getTransaction().commit();
 				
 				return act;
 			}else {

@@ -7,6 +7,7 @@ import co.edu.icesi.mio.model.Tmio1Ruta;
 
 public interface IRutasLogic {
 
+	public boolean validarRuta(Tmio1Ruta ruta);
 	public boolean crearRuta(Tmio1Ruta ruta);
 	public boolean actualizarRuta(Tmio1Ruta ruta);
 	public boolean borrarRuta(Tmio1Ruta ruta);

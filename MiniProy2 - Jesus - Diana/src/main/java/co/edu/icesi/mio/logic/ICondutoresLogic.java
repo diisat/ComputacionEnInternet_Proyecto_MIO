@@ -6,6 +6,7 @@ import co.edu.icesi.mio.model.Tmio1Conductore;
 
 public interface ICondutoresLogic {
 
+	public boolean validarConductor(Tmio1Conductore cond);
 	public boolean crearConductor(Tmio1Conductore cond);
 	public boolean actualizarConductor(Tmio1Conductore cond);
 	public boolean borrarConductor(Tmio1Conductore cond);
