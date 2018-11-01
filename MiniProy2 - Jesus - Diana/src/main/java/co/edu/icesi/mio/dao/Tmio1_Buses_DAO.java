@@ -25,7 +25,7 @@ public class Tmio1_Buses_DAO implements ITmio1_Buses_DAO{
 	@Override
 	public Tmio1Bus findByPlaca(EntityManager em, String placa) {
 		String jpql = "Select b from Tmio1Bus b where b.placa="+ placa;
-		return 	 (Tmio1Bus) em.createQuery(jpql).getSingleResult();
+		return 	 (Tmio1Bus) em.createQuery(jpql).getResultList().get(0);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Tmio1_Buses_DAO implements ITmio1_Buses_DAO{
 
 	@Override
 	public void delete(EntityManager em, Tmio1Bus bus) {
-		em.remove(bus);
+		em.remove(em.contains(bus) ? bus : em.merge(bus));
 	}
 
 	@Override

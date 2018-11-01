@@ -31,10 +31,15 @@ public class TestBusesLogic {
 	@Autowired
 	private IBusesLogic busesLogic;
 	
-//	@Before
-	public void setupEscenario1() {
-		
 
+	/*
+	 * falla, por eso esta comentado
+	 */
+	
+	@Before
+	public void crearTest1_1() {
+		
+		assertNotNull(busesLogic);
 		Tmio1Bus bus = new Tmio1Bus();
 		
 		bus.setCapacidad(new BigDecimal(2000));
@@ -44,8 +49,18 @@ public class TestBusesLogic {
 		bus.setTipo("T");
 		bus.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		bus.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+
+		assertTrue(busesLogic.crearBus(bus));
+
 		
+
+	}
+	
+	
+	@Before
+	public void crearTest1_2() {
 		
+		assertNotNull(busesLogic);
 		Tmio1Bus bus1 = new Tmio1Bus();
 		
 		bus1.setCapacidad(new BigDecimal(3000));
@@ -55,9 +70,16 @@ public class TestBusesLogic {
 		bus1.setTipo("T");
 		bus1.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		bus1.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+
+		assertTrue(busesLogic.crearBus(bus1));
+
 		
+
+	}
+	@Before
+	public void crearTest1_3() {
 		
-		
+		assertNotNull(busesLogic);
 		Tmio1Bus bus2 = new Tmio1Bus();
 		
 		bus2.setCapacidad(new BigDecimal(2000));
@@ -67,8 +89,17 @@ public class TestBusesLogic {
 		bus2.setTipo("A");
 		bus2.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		bus2.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+		assertTrue(busesLogic.crearBus(bus2));
+
 		
+
+	}
+	
+	
+	@Before
+	public void crearTest1_4() {
 		
+		assertNotNull(busesLogic);
 		Tmio1Bus bus3 = new Tmio1Bus();
 		
 		bus3.setCapacidad(new BigDecimal(2000));
@@ -78,42 +109,16 @@ public class TestBusesLogic {
 		bus3.setTipo("A");
 		bus3.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		bus3.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
-		
-		
-		busesLogic.crearBus(bus);
-		busesLogic.crearBus(bus1);
-		busesLogic.crearBus(bus2);
-		busesLogic.crearBus(bus3);
-		
-
-	}
-	
-	
-	
-
-	/*
-	 * falla, por eso esta comentado
-	 */
-	
-	@Test
-	public void crearTest1() {
-		
-		assertNotNull(busesLogic);
-		Tmio1Bus bus = new Tmio1Bus();
-		
-		bus.setCapacidad(new BigDecimal(2000));
-		bus.setMarca("Nuevo45");
-		bus.setModelo(new BigDecimal(2015));
-		bus.setPlaca("KGZ999");
-		bus.setTipo("T");
-		bus.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
-		bus.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
-
-		assertTrue(busesLogic.crearBus(bus));
+		assertTrue(busesLogic.crearBus(bus3));
 
 		
 
 	}
+	
+	
+	
+	
+	
 	/*
 	 * Prueba con placa = null, "", diferente a 6 por lo tanto funciona mal
 	 */
@@ -618,14 +623,15 @@ public class TestBusesLogic {
 	/*
 	 * prueba con datos de la prueba crearTest, funciona bien
 	 */
-//	@Test
-//	@After
+	
+	@After
 	public void borrarTest1() {
 		assertNotNull(busesLogic);
-		assertTrue(busesLogic.borrarBus(busesLogic.buscarPlaca("KGZ310")));
-		assertTrue(busesLogic.borrarBus(busesLogic.buscarPlaca("IZU339")));
-		assertTrue(busesLogic.borrarBus(busesLogic.buscarPlaca("DMS444")));
-		assertTrue(busesLogic.borrarBus(busesLogic.buscarPlaca("MSX233")));
+		assertTrue(busesLogic.borrarBus(busesLogic.buscarBusTipo("T").get(0)));
+		assertTrue(busesLogic.borrarBus(busesLogic.buscarBusTipo("T").get(0)));
+		assertTrue(busesLogic.borrarBus(busesLogic.buscarBusTipo("A").get(0)));
+		assertTrue(busesLogic.borrarBus(busesLogic.buscarBusTipo("A").get(0)));
+		
 	}
 	
 
