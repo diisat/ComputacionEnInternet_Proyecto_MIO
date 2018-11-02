@@ -40,6 +40,8 @@ public class TestServiciosLogic {
 	
 	@Autowired
 	private IRutasLogic rutasLogic;
+	
+//	private static Logger;
 
 	
 	/**
@@ -168,7 +170,9 @@ public class TestServiciosLogic {
 		s1.setTmio1Ruta(ruta);
 		
 		
-		
+	}
+	
+	public void Test2() {
 		
 	}
 	
