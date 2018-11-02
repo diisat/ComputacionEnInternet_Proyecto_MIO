@@ -35,13 +35,13 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 	
 	
 	//////
-	@Autowired
-	private ITmio1_Buses_DAO busesDao;
-	@Autowired
-	private ITmio1_Rutas_DAO rutasDao;
-	@Autowired
-	private ITmio1_Conductores_DAO conductoresDao;
-	
+//	@Autowired
+//	private ITmio1_Buses_DAO busesDao;
+//	@Autowired
+//	private ITmio1_Rutas_DAO rutasDao;
+//	@Autowired
+//	private ITmio1_Conductores_DAO conductoresDao;
+//	
 
 	@Autowired
 	private IBusesLogic busesLogic;
@@ -50,20 +50,20 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 	@Autowired
 	private IRutasLogic rutasLogic;
 	
-	public Tmio1Bus getBus(int id) {
-		busesDao=new Tmio1_Buses_DAO();
-		return busesDao.findById(em, id);
-	}
-
-	public Tmio1Conductore getConductor(String cedula) {
-		conductoresDao = new Tmio1_Conductores_DAO();
-		return conductoresDao.findByCedula(em, cedula);
-	}
-
-	public Tmio1Ruta getRuta(int id) {
-		rutasDao= new Tmio1_Rutas_DAO();
-		return rutasDao.findById(em, id);
-	}
+//	public Tmio1Bus getBus(int id) {
+//		busesDao=new Tmio1_Buses_DAO();
+//		return busesDao.findById(em, id);
+//	}
+//
+//	public Tmio1Conductore getConductor(String cedula) {
+//		conductoresDao = new Tmio1_Conductores_DAO();
+//		return conductoresDao.findByCedula(em, cedula);
+//	}
+//
+//	public Tmio1Ruta getRuta(int id) {
+//		rutasDao= new Tmio1_Rutas_DAO();
+//		return rutasDao.findById(em, id);
+//	}
 	
 	///////
 	
