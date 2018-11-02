@@ -437,7 +437,7 @@ public class TestBusesLogic {
 	
 	}
 	/*
-	 * Prueba con tipo = w por lo tanto funciona bien
+	 * Prueba con tipo = w por lo tanto funciona mal
 	 */
 	
 	
