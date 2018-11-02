@@ -158,7 +158,7 @@ public class Tmio1_Servicios_Logic implements IServiciosLogic{
 		@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 		public List<Tmio1Servicio> buscarServicioRangoFechas(Calendar fechaInicio, Calendar fechaFin ) {
 			// falta hacer todas las validaciones
-			if(fechaInicio!=null && fechaFin!=null) {
+			if(fechaInicio!=null && fechaFin!=null  && fechaInicio.compareTo(fechaFin)<=0) {
 
 				List<Tmio1Servicio> act= serviciosDAO.findByRangeOfDates(em, fechaInicio, fechaFin);
 				

@@ -46,6 +46,8 @@ public class Tmio1_Buses_Logic implements IBusesLogic {
 		 * Validaci�n esta completa
 		 */
 		boolean ret=false;
+		
+		if(bus!=null) {
 		// valida la placa
 		if(bus.getPlaca()!=null && !bus.getPlaca().equals("")  && bus.getPlaca().length()==6) {
 			// valida la marca
@@ -62,7 +64,7 @@ public class Tmio1_Buses_Logic implements IBusesLogic {
 				}	
 			}
 		}
-		
+		}
 		return ret;
 	}
 	

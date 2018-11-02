@@ -48,7 +48,7 @@ public class TestServiciosLogic {
 	 * Inicializa las entidades buses, conductores y rutas
 	 */
 
-	@Before
+//	@Before
 	public void setupEscenario1() {
 
 //		serviciosLogic=new Tmio1_Servicios_Logic();
@@ -144,7 +144,7 @@ public class TestServiciosLogic {
 	}
 	
 	
-	@Test
+//	@Test
 	public void Test1() {
 		
 		assertNotNull(serviciosLogic);
@@ -172,9 +172,73 @@ public class TestServiciosLogic {
 		
 	}
 	
-	public void Test2() {
+	
+	@Test
+	public void crearTest() {
+		
+		Tmio1Servicio act = new Tmio1Servicio();
+		
+		
+		assertFalse("no es falso",serviciosLogic.crearServicio(act));
+		
 		
 	}
+	
+	
+	
+	@Test
+	public void borrarTest() {
+		Tmio1Servicio act = new Tmio1Servicio();
+		
+		
+		assertFalse("no es falso",serviciosLogic.borrarServicio(act));
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void modificarTest() {
+		
+		Tmio1Servicio act = new Tmio1Servicio();
+		
+		
+		assertFalse("no es falso",serviciosLogic.actualizarServicio(act));
+		
+		
+	}
+	
+	
+	
+	
+	
+	@Test
+	public void buscarRangoFechasTest1() {
+		
+		Calendar ini = new GregorianCalendar(2018,2,10);
+		Calendar fin = new GregorianCalendar(2017,4,2);
+		
+		assertNull("no es nulo",serviciosLogic.buscarServicioRangoFechas(ini, fin));
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void buscarRangoFechasTest2() {
+		
+		Calendar ini = null;
+		Calendar fin = null;
+		
+		assertNull("no es nulo",serviciosLogic.buscarServicioRangoFechas(ini, fin));
+		
+		
+		
+	}
+	
+	
 	
 	
 	

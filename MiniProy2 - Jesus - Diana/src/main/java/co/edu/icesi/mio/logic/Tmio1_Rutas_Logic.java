@@ -38,7 +38,10 @@ public class Tmio1_Rutas_Logic implements IRutasLogic {
 	public boolean validarRuta(Tmio1Ruta ruta) {
 		
 		try {
+			
 			boolean ret = false;
+			if (ruta!=null) {
+			
 			/*
 			 * validacion completa	
 			 */
@@ -68,6 +71,7 @@ public class Tmio1_Rutas_Logic implements IRutasLogic {
 						}
 					}
 				}
+			}
 			}
 			return ret;
 		} catch (NumberFormatException e) {
