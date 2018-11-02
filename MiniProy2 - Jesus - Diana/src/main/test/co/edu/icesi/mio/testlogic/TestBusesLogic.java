@@ -32,10 +32,7 @@ public class TestBusesLogic {
 	private IBusesLogic busesLogic;
 	
 
-	/*
-	 * falla, por eso esta comentado
-	 */
-	
+
 	@Before
 	public void crearTest1_1() {
 		

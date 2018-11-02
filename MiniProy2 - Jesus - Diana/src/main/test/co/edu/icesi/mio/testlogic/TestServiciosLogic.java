@@ -49,11 +49,11 @@ public class TestServiciosLogic {
 	@Before
 	public void setupEscenario1() {
 
-		serviciosLogic=new Tmio1_Servicios_Logic();
-		
-		busesLogic=new Tmio1_Buses_Logic();
-		conductoreLogic= new Tmio1_Conductores_Logic();
-		rutasLogic= new Tmio1_Rutas_Logic();
+//		serviciosLogic=new Tmio1_Servicios_Logic();
+//		
+//		busesLogic=new Tmio1_Buses_Logic();
+//		conductoreLogic= new Tmio1_Conductores_Logic();
+//		rutasLogic= new Tmio1_Rutas_Logic();
 		
 		
 		//crear los buses, conductores y rutas necesarias
