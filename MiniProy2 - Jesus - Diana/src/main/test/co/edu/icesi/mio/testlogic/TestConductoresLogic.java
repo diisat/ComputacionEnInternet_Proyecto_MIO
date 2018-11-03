@@ -130,7 +130,7 @@ public class TestConductoresLogic {
 		 * Funciona, crea el conductor con cedula "89"
 		 */
 	@Test
-	public void crearConductorTest1() {
+	public void crearCedulaDefNumericaTest1() {
 
 		
 		assertNotNull(conductorLogic);
@@ -242,7 +242,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	 * Funciona, no crea un conductor con una cedula "gehkl" 
 	 */
 	@Test
-	public void crearTest2() {
+	public void crearCedulaNoNum2() {
 
 		
 		assertNotNull(conductorLogic);
@@ -269,7 +269,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	 * Funciona, no deja crear un conductor con una cedula "" .
 	 */
 	@Test
-	public void crearTest3() {
+	public void crearConCedNull() {
 
 		
 		assertNotNull(conductorLogic);
@@ -295,7 +295,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	 * Funciona, no deja crear un conductor misma cedula de un conductor ya creado "7896" .
 	 */
 	@Test
-	public void crearTest4() {
+	public void crearConCedRepetida() {
 
 		
 		assertNotNull(conductorLogic);
@@ -335,7 +335,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	 * de menos de tres caracteres. 
 	 */
 	@Test
-	public void crearTest5() {
+	public void crearConNomApellido() {
 
 		
 		assertNotNull(conductorLogic);
@@ -356,6 +356,61 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 		
 	}
 
+	
+	
+	/**
+	 * Funciona, no deja crear un conductor con un nombre y apellido 
+	 * de menos de tres caracteres. 
+	 */
+	@Test
+	public void crearMayorEdad() {
+
+		
+		assertNotNull(conductorLogic);
+		
+		
+		Tmio1Conductore conductor= new Tmio1Conductore();
+		conductor.setCedula("443");
+		conductor.setNombre("Daniel");
+		conductor.setApellidos("Rojas");
+		Calendar d = new GregorianCalendar(2017,01,11);
+		conductor.setFechaContratacion(d.getTime());
+		Calendar d1 = new GregorianCalendar(2017,04,24);
+		conductor.setFechaNacimiento(d1.getTime());
+		conductor.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
+		conductor.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+		
+		assertFalse(conductorLogic.crearConductor(conductor));
+		
+	}
+	
+	
+	
+	/**
+	 * Funciona, no deja crear un conductor con la fecha de contratación
+	 *	q esté definida y no sea menor a la fecha actual.
+	 */
+	@Test
+	public void crearFechaContraFechaAct() {
+
+		
+		assertNotNull(conductorLogic);
+		
+		
+		Tmio1Conductore conductor= new Tmio1Conductore();
+		conductor.setCedula("443");
+		conductor.setNombre("Daniel");
+		conductor.setApellidos("Rojas");
+		Calendar d = new GregorianCalendar(2020,01,11);
+		conductor.setFechaContratacion(d.getTime());
+		Calendar d1 = new GregorianCalendar(1999,04,24);
+		conductor.setFechaNacimiento(d1.getTime());
+		conductor.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
+		conductor.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+		
+		assertFalse(conductorLogic.crearConductor(conductor));
+		
+	}
 	
 	///////////////BUSCAR POR NOMBRE
 	/**

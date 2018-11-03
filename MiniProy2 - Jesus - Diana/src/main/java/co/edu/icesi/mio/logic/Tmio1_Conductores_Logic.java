@@ -1,5 +1,7 @@
 package co.edu.icesi.mio.logic;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -56,9 +58,9 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 					//validar apellido
 					if(cond.getApellidos()!=null && !cond.getApellidos().equals("") && cond.getApellidos().length()>=3) {
 						//validar fecha nacimiento
-						if(cond.getFechaNacimiento()!=null) {
+						if(cond.getFechaNacimiento()!=null && cond.getFechaNacimiento().before(new GregorianCalendar(2001,01,01).getTime())) {
 							//validar fecha contratacion
-							if(cond.getFechaContratacion()!=null) {
+							if(cond.getFechaContratacion()!=null && cond.getFechaContratacion().before(Calendar.getInstance().getTime())) {
 								
 									ret=true;
 								

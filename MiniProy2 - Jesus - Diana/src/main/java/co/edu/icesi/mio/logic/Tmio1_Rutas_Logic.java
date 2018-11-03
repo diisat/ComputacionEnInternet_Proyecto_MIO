@@ -84,7 +84,6 @@ public class Tmio1_Rutas_Logic implements IRutasLogic {
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean crearRuta(Tmio1Ruta ruta) {
 		
-		// falta hacer todas las validaciones
 		
 		if(validarRuta(ruta)) {
 
