@@ -49,7 +49,7 @@ public class TestServiciosLogic {
 	 * Inicializa las entidades buses, conductores y rutas
 	 */
 
-	@Test
+//	@Test
 	public void crearServiciosTest1() {
 
 
@@ -162,10 +162,13 @@ public class TestServiciosLogic {
 		
 		assertTrue("No se creó correctamente el servicio",serviciosLogic.crearServicio(s1));
 		
+		borrarTablas();
 	}
 	
 	
-
+	public void borrarTablas() {
+		
+	}
 	
 	/**
 	 * Funciona, no permite crear servicios con relaciones nulos
