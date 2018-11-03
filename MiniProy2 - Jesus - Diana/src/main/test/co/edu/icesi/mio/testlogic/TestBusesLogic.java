@@ -46,7 +46,7 @@ public class TestBusesLogic {
 		
 		bus.setCapacidad(new BigDecimal(2000));
 		bus.setMarca("Renault");
-		bus.setModelo(new BigDecimal(2015));
+		bus.setModelo(new BigDecimal(2015)); 
 		bus.setPlaca("KGZ310");
 		bus.setTipo("T");
 		bus.setTmio1Servicios(new ArrayList<Tmio1Servicio>());

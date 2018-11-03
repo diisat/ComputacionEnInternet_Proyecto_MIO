@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import co.edu.icesi.mio.logic.*;
 import co.edu.icesi.mio.model.*;
-import co.edu.icesi.mio.logic.*;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -28,6 +28,9 @@ public class TestServiciosLogic {
 	 * Conexiones necesarias para crear un servicio
 	 * 
 	 */
+	@Autowired
+	private IRutasLogic rutasLogic;
+	
 	
 	@Autowired
 	private IServiciosLogic serviciosLogic;
@@ -38,40 +41,35 @@ public class TestServiciosLogic {
 	@Autowired
 	private ICondutoresLogic conductoreLogic;
 	
-	@Autowired
-	private IRutasLogic rutasLogic;
+
 	
-//	private static Logger;
 
 	
 	/**
 	 * Inicializa las entidades buses, conductores y rutas
 	 */
 
-//	@Before
-	public void setupEscenario1() {
+	@Test
+	public void crearServiciosTest1() {
 
-//		serviciosLogic=new Tmio1_Servicios_Logic();
-//		
-//		busesLogic=new Tmio1_Buses_Logic();
-//		conductoreLogic= new Tmio1_Conductores_Logic();
-//		rutasLogic= new Tmio1_Rutas_Logic();
+
+		//Se crean los buses, conductores y rutas necesarias (escenario para crear los servicios)
 		
+		/////Rutas
 		
-		//crear los buses, conductores y rutas necesarias
-		
-		//Rutas
 		Tmio1Ruta ruta= new Tmio1Ruta();
 		ruta.setActiva("S");
-		ruta.setDescripcion("ruta F a H Es1");
-		ruta.setDiaInicio(new BigDecimal(1));
+		ruta.setDescripcion("ruta A a B CR1");
+		ruta.setDiaInicio(new BigDecimal(6));
 		ruta.setDiaFin(new BigDecimal(7));
-		ruta.setHoraInicio(new BigDecimal(3));
+		ruta.setHoraInicio(new BigDecimal(5));
 		ruta.setHoraFin(new BigDecimal(15));
-		ruta.setNumero("D10");
+		ruta.setNumero("P27");
     	ruta.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
     	ruta.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
     	ruta.setTmio1SitiosRutas1(new ArrayList<Tmio1SitiosRuta>());
+
+    	rutasLogic.crearRuta(ruta);
     	
     	Tmio1Ruta ruta1= new Tmio1Ruta();
 		ruta1.setActiva("S");
@@ -85,10 +83,10 @@ public class TestServiciosLogic {
     	ruta1.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
     	ruta1.setTmio1SitiosRutas1(new ArrayList<Tmio1SitiosRuta>());
     	
-    	rutasLogic.crearRuta(ruta);
+    	rutasLogic.crearRuta(ruta1);
     	
     	
-    	//Conductores
+    	/////Conductores
     	Tmio1Conductore conductor4= new Tmio1Conductore();
 		conductor4.setCedula("50");
 		conductor4.setNombre("Alejandro");
@@ -114,8 +112,8 @@ public class TestServiciosLogic {
     	
 		conductoreLogic.crearConductor(conductor4);
 		conductoreLogic.crearConductor(conductor5);
-		
-		//Buses
+
+		/////Buses
 		Tmio1Bus bus = new Tmio1Bus();
 		
 		bus.setCapacidad(new BigDecimal(1000));
@@ -141,22 +139,15 @@ public class TestServiciosLogic {
 		busesLogic.crearBus(bus1);
 		
 		
-	}
-	
-	
-//	@Test
-	public void Test1() {
+		
+		////////Test crear nuevos servicios
 		
 		assertNotNull(serviciosLogic);
-		
-		Tmio1Conductore conductor = conductoreLogic.buscarConductorCedula("50");
-		Tmio1Bus bus= busesLogic.buscarPlaca("IZU559");
-		Tmio1Ruta ruta= rutasLogic.buscarRutaRango(new BigDecimal(7),new BigDecimal( 7)).get(0);
-		
+
 		Tmio1ServicioPK s1PK = new Tmio1ServicioPK();
 		
-		s1PK.setCedulaConductor("50");
-		s1PK.setIdBus(busesLogic.buscarPlaca("IZU559").getId());
+		s1PK.setCedulaConductor(conductor4.getCedula());
+		s1PK.setIdBus(bus.getId());
 		s1PK.setIdRuta(ruta.getId());
 		Calendar d2 = new GregorianCalendar(2018,1,20);
 		s1PK.setFechaInicio(d2.getTime());
@@ -166,20 +157,40 @@ public class TestServiciosLogic {
 		Tmio1Servicio s1= new Tmio1Servicio();
 		s1.setId(s1PK);		
 		s1.setTmio1Bus(bus);
-		s1.setTmio1Conductore(conductor);
+		s1.setTmio1Conductore(conductor4);
 		s1.setTmio1Ruta(ruta);
 		
+		assertTrue("No se creó correctamente el servicio",serviciosLogic.crearServicio(s1));
 		
 	}
 	
 	
+
+	
+	/**
+	 * Funciona, no permite crear servicios con relaciones nulos
+	 */
 	@Test
-	public void crearTest() {
+	public void crearServiciosTest() {
 		
 		Tmio1Servicio act = new Tmio1Servicio();
 		
+		Tmio1ServicioPK s1PK = new Tmio1ServicioPK();
 		
-		assertFalse("no es falso",serviciosLogic.crearServicio(act));
+		s1PK.setCedulaConductor("");
+		s1PK.setIdBus(0);
+		s1PK.setIdRuta(0);
+		Calendar d2 = new GregorianCalendar(2018,1,20);
+		s1PK.setFechaInicio(d2.getTime());
+		Calendar d3 = new GregorianCalendar(2018,8,27);
+		s1PK.setFechaFin(d3.getTime());
+		
+
+		act.setId(s1PK);		
+		act.setTmio1Bus(null);
+		act.setTmio1Conductore(null);
+		act.setTmio1Ruta(null);
+		assertFalse("No funciona, sí se creó el servicio.",serviciosLogic.crearServicio(act));
 		
 		
 	}
@@ -191,7 +202,8 @@ public class TestServiciosLogic {
 		Tmio1Servicio act = new Tmio1Servicio();
 		
 		
-		assertFalse("no es falso",serviciosLogic.borrarServicio(act));
+		
+		assertFalse("No funciona, sí se borró el servicio.",serviciosLogic.borrarServicio(act));
 		
 		
 		

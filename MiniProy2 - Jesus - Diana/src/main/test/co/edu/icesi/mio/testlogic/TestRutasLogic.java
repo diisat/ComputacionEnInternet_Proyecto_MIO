@@ -34,9 +34,9 @@ public class TestRutasLogic {
 	 * TEST 1 - crea 4 rutas - actualiza 2 -
 	 */
 	/*
-	 * No quitar comentario
+	 * Crea exitosamente una ruta
 	 */
-//	@Before
+	@Test
 	public void crearRutaTest1_1() {
 	assertNotNull(rutasLogic);
 		
@@ -320,15 +320,15 @@ public class TestRutasLogic {
 				
 	}
 	
-	@Test
-	public void buscarPorRangoDias2Test() {
-		
-		
-		assertNotNull(rutasLogic);
-		
-		List<Tmio1Ruta> rutas = rutasLogic.buscarRutaRango(new BigDecimal(2), new BigDecimal(7));
-		assertNotNull("No existen rutas en este rango de dias", rutas);		
-		assertEquals(2, rutas.size());
-		}
+//	@Test
+//	public void buscarPorRangoDias2Test() {
+//		
+//		
+//		assertNotNull(rutasLogic);
+//		
+//		List<Tmio1Ruta> rutas = rutasLogic.buscarRutaRango(new BigDecimal(2), new BigDecimal(7));
+//		assertNotNull("No existen rutas en este rango de dias", rutas);		
+//		assertEquals(2, rutas.size());
+//		}
 
 }

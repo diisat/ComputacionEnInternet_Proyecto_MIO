@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,23 @@ import co.edu.icesi.mio.logic.ICondutoresLogic;
 import co.edu.icesi.mio.logic.Tmio1_Conductores_Logic;
 import co.edu.icesi.mio.model.*;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
 @Rollback(false)
 public class TestConductoresLogic {
 
 	@Autowired
-	private ICondutoresLogic conductorLogic;
+	 private ICondutoresLogic conductorLogic;
+	
+	
+	 /**
+		 * Funciona, crea varios conductores con una cedulas diferentes y válidas
+		 */
+	@Test
+	public void crearTest1() {
 
-   @Before
-	public void setupEscenario1() {
-
-	   
-	   conductorLogic=new Tmio1_Conductores_Logic();
 		
+		assertNotNull(conductorLogic);
 		
 		Tmio1Conductore conductor= new Tmio1Conductore();
 		conductor.setCedula("01");
@@ -106,47 +109,126 @@ public class TestConductoresLogic {
 		conductor6.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		conductor6.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
-		conductorLogic.crearConductor(conductor);
-		conductorLogic.crearConductor(conductor3);
-		conductorLogic.crearConductor(conductor2);
-		conductorLogic.crearConductor(conductor4);
-		conductorLogic.crearConductor(conductor5);
-		conductorLogic.crearConductor(conductor6);
-
 		
-		
-		
-	}
-
-   /**
-	 * Funciona, crea un conductor con una cedula "89" 
-	 */
-   @Test
-	public void crearTest1() {
-
-		assertNotNull(conductorLogic);
-		
-		
-		Tmio1Conductore conductor= new Tmio1Conductore();
-		conductor.setCedula("89");
-		conductor.setNombre("Luis");
-		conductor.setApellidos("Miguel");
-		Calendar d = new GregorianCalendar(2015,07,12);
-		conductor.setFechaContratacion(d.getTime());
-		Calendar d1 = new GregorianCalendar(1989,03,20);
-		conductor.setFechaNacimiento(d1.getTime());
-		conductor.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
-		conductor.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
+		Tmio1Conductore conductor7= new Tmio1Conductore();
+		conductor7.setCedula("89");
+		conductor7.setNombre("Luis");
+		conductor7.setApellidos("Miguel");
+		Calendar d12 = new GregorianCalendar(2015,07,12);
+		conductor7.setFechaContratacion(d12.getTime());
+		Calendar d13 = new GregorianCalendar(1989,03,20);
+		conductor7.setFechaNacimiento(d13.getTime());
+		conductor7.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
+		conductor7.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
 		assertTrue(conductorLogic.crearConductor(conductor));
 		
+		assertTrue(conductorLogic.crearConductor(conductor7));
+		
+		assertTrue(conductorLogic.crearConductor(conductor2));
+		assertTrue(conductorLogic.crearConductor(conductor3));
+		assertTrue(conductorLogic.crearConductor(conductor4));
+		assertTrue(conductorLogic.crearConductor(conductor5));
+		assertTrue(conductorLogic.crearConductor(conductor6));
+
+//		 actualizarTest1();
+//		 actualizarEnTest1();
+		
+		
 	}
+
+	/**
+	 * Funciona, actualiza el conductor "01" que se habia actualizado en actualizarTest1
+	 */
+	
+	public void actualizarEnTest1() {
+		
+		assertNotNull(conductorLogic);
+		
+		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("01");
+		conductor.setNombre("TommY");
+		
+		assertTrue(conductorLogic.actualizarConductor(conductor));
+		
+	}
+	
+	
+	
+	
+/**
+* Funciona, actualiza el conductor ced "01" llamado Diana a Rondal macdonald
+*/
+@Test
+public void actualizarTest1() {
+
+assertNotNull(conductorLogic);
+
+Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("01");
+conductor.setNombre("RONALD");
+conductor.setApellidos("MACDONALD'S");
+Calendar d1 = new GregorianCalendar(1950,10,28);
+conductor.setFechaNacimiento(d1.getTime());
+
+assertTrue(conductorLogic.actualizarConductor(conductor));
+
+}
+
+
+/**
+* Funciona, no actualiza el conductor "1478" porque no existe en la base de datos 
+*/
+@Test
+public void actualizarTest2() {
+
+assertNotNull(conductorLogic);
+
+Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("1478");
+if(conductor!=null) conductor.setNombre("a");
+
+assertFalse(conductorLogic.actualizarConductor(conductor));
+
+}
+
+/**
+* Funciona, no actualiza el conductor "" porque no existe en la base de datos 
+*/
+@Test
+public void actualizarTest3() {
+
+assertNotNull(conductorLogic);
+
+Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("");
+assertFalse(conductorLogic.actualizarConductor(conductor));
+
+}
+
+
+
+
+/**
+* Funciona, no actualiza el conductor "123"
+*/
+@Test
+public void actualizarTest5() {
+
+assertNotNull(conductorLogic);
+
+Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("123");
+
+assertTrue(conductorLogic.actualizarConductor(conductor));
+
+}
+
+
+
+
    /**
 	 * Funciona, no crea un conductor con una cedula "gehkl" 
 	 */
 	@Test
 	public void crearTest2() {
 
+		
 		assertNotNull(conductorLogic);
 		
 		
@@ -173,6 +255,7 @@ public class TestConductoresLogic {
 	@Test
 	public void crearTest3() {
 
+		
 		assertNotNull(conductorLogic);
 		
 		
@@ -198,6 +281,7 @@ public class TestConductoresLogic {
 	@Test
 	public void crearTest4() {
 
+		
 		assertNotNull(conductorLogic);
 		
 		
@@ -225,7 +309,7 @@ public class TestConductoresLogic {
 		conductor1.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
 		assertTrue(conductorLogic.crearConductor(conductor));
-		assertFalse(conductorLogic.crearConductor(conductor1));
+		assertTrue(conductorLogic.crearConductor(conductor1));
 		
 	}
 	
@@ -237,6 +321,7 @@ public class TestConductoresLogic {
 	@Test
 	public void crearTest5() {
 
+		
 		assertNotNull(conductorLogic);
 		
 		
@@ -490,86 +575,6 @@ public class TestConductoresLogic {
 		
 	}
 	
-	////////////ACTUALIZAR TEST
-	
-	
-	/**
-	 * Funciona, actualiza el conductor ced "01" llamado Diana a Rondal macdonald
-	 */
-	@Test
-	public void actualizarTest1() {
-		
-		assertNotNull(conductorLogic);
-		
-		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("01");
-		conductor.setNombre("RONALD");
-		conductor.setApellidos("MACDONALD'S");
-		Calendar d1 = new GregorianCalendar(1950,10,28);
-		conductor.setFechaNacimiento(d1.getTime());
-		
-		assertTrue(conductorLogic.actualizarConductor(conductor));
-		
-	}
-	
-	
-	/**
-	 * Funciona, no actualiza el conductor "1478" porque no existe en la base de datos 
-	 */
-	@Test
-	public void actualizarTest2() {
-		
-		assertNotNull(conductorLogic);
-		
-		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("1478");
-		if(conductor!=null) conductor.setNombre("a");
-		
-		assertFalse(conductorLogic.actualizarConductor(conductor));
-		
-	}
-	
-	/**
-	 * Funciona, no actualiza el conductor "" porque no existe en la base de datos 
-	 */
-	@Test
-	public void actualizarTest3() {
-		
-		assertNotNull(conductorLogic);
-		
-		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("");
-		assertFalse(conductorLogic.actualizarConductor(conductor));
-		
-	}
-	
-	/**
-	 * Funciona, actualiza el conductor "01" que se habï¿½a actualizado en actualizarTest1
-	 */
-	@Test
-	public void actualizarTest4() {
-		
-		assertNotNull(conductorLogic);
-		
-		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("01");
-		conductor.setNombre("TommY");
-		
-		assertTrue(conductorLogic.actualizarConductor(conductor));
-		
-	}
-	
-	
-	/**
-	 * Funciona, no actualiza el conductor "123"
-	 */
-	@Test
-	public void actualizarTest5() {
-		
-		assertNotNull(conductorLogic);
-		
-		Tmio1Conductore conductor= conductorLogic.buscarConductorCedula("123");
-
-		assertTrue(conductorLogic.actualizarConductor(conductor));
-		
-	}
-	
 	
 	
 	///////////////BORRAR TEST
@@ -577,18 +582,26 @@ public class TestConductoresLogic {
 	/**
 	 * Funciona, elimina todas los conductores creados en el test1
 	 */
-	@Test
+//	@Test
 	public void borrarTest1() {
 		
-		assertNotNull(conductorLogic);
-
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("01")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("02")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("06")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("10")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("123")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("15")));
+//		assertNotNull(conductorLogic);
+//
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("01")));
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("02")));
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("06")));
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("10")));
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("123")));
+//		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("15")));
 		
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("01"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("02"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("06"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("10"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("123"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("15"));
+		
+	
 				
 	}
 	

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.icesi.mio.dao.ITmio1_Conductores_DAO;
@@ -19,16 +20,14 @@ import co.edu.icesi.mio.model.Tmio1Conductore;
 public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 	
 
-	EntityManagerFactory managerFactor = Persistence.createEntityManagerFactory("MiniProyectoComputacion");
-	
+
 	// atributos
 	@PersistenceContext
-    private EntityManager em= managerFactor.createEntityManager();
+    private EntityManager em;
 	
 
 	@Autowired
-    private ITmio1_Conductores_DAO conductorDAO  =new Tmio1_Conductores_DAO();
-	//preguntar pq cuando se quita el new falla la instanciacion
+    private ITmio1_Conductores_DAO conductorDAO ;
 	
 	////////
 	//METODOS
@@ -78,7 +77,7 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 		
 	}
 	
-	@Transactional 
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean crearConductor(Tmio1Conductore cond) {
 
 		
@@ -86,9 +85,9 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 
 					
 					try {
-						em.getTransaction().begin();
+						
 						conductorDAO.save(em, cond);
-						em.getTransaction().commit();
+						
 					} catch (Exception e) {
 						return false;
 					}
@@ -103,14 +102,14 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean actualizarConductor(Tmio1Conductore cond) {
 	
 		if(validarConductor(cond)) {
 
-			em.getTransaction().begin();
+			
 			conductorDAO.update(em, cond);
-			em.getTransaction().commit();
+		
 			
 			return true;
 		}else {
@@ -119,14 +118,14 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean borrarConductor(Tmio1Conductore cond) {
 		
 		if(validarConductor(cond)) {
 
-			em.getTransaction().begin();
+		
 			conductorDAO.delete(em, cond);
-			em.getTransaction().commit();
+			
 			
 			return true;
 		}else {
@@ -136,14 +135,14 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 	}
 	
 	
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Tmio1Conductore> buscarConductorNombre(String nombre) {
 		
 		if(!nombre.equals("") && nombre != null) {
 
-			em.getTransaction().begin();
+			
 			List<Tmio1Conductore> act=conductorDAO.findByName(em, nombre);
-			em.getTransaction().commit();
+		
 			
 			return act;
 		}else {
@@ -152,15 +151,14 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 		
 	}
 	
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Tmio1Conductore> buscarConductorApellido(String apellido) {
 		// falta hacer todas las validaciones
 		if(!apellido.equals("") && apellido!=null) {
 
-			em.getTransaction().begin();
-			List<Tmio1Conductore> act=conductorDAO.findByLastName(em, apellido);
-			em.getTransaction().commit();
 			
+			List<Tmio1Conductore> act=conductorDAO.findByLastName(em, apellido);
+		
 			return act;
 		}else {
 			return null;	
@@ -168,14 +166,14 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 		
 	}
 	
-
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Tmio1Conductore buscarConductorCedula(String cedula) {
 
 		if(!cedula.equals("") && cedula !=null) {
 
-			em.getTransaction().begin();
+			
 			Tmio1Conductore act=conductorDAO.findByCedula(em, cedula);
-			em.getTransaction().commit();
+			
 			
 			return act;
 		}else {
