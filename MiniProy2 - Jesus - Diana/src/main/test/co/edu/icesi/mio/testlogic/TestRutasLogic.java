@@ -36,7 +36,7 @@ public class TestRutasLogic {
 	/*
 	 * Crea exitosamente una ruta
 	 */
-	@Test
+//	@Test
 	public void crearRutaTest1_1() {
 	assertNotNull(rutasLogic);
 		

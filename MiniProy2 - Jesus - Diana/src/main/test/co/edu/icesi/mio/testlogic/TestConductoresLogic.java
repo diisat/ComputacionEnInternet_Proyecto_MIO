@@ -131,8 +131,8 @@ public class TestConductoresLogic {
 		assertTrue(conductorLogic.crearConductor(conductor5));
 		assertTrue(conductorLogic.crearConductor(conductor6));
 
-//		 actualizarTest1();
-//		 actualizarEnTest1();
+		 actualizarEnTest1();
+		 actualizarEnTest2();
 		
 		
 	}
@@ -158,8 +158,7 @@ public class TestConductoresLogic {
 /**
 * Funciona, actualiza el conductor ced "01" llamado Diana a Rondal macdonald
 */
-@Test
-public void actualizarTest1() {
+public void actualizarEnTest2() {
 
 assertNotNull(conductorLogic);
 
