@@ -32,14 +32,22 @@ public class TestConductoresLogic {
 	 private ICondutoresLogic conductorLogic;
 	
 	
-	 /**
-		 * Funciona, crea varios conductores con una cedulas diferentes y válidas
-		 */
-	@Test
-	public void crearTest1() {
-
+	@After
+	public void borrarSetUp() {
 		
-		assertNotNull(conductorLogic);
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("01"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("02"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("06"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("10"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("123"));
+		conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("15"));
+		
+	
+				
+	}
+	
+	@Before
+	public void crearSetUp() {
 		
 		Tmio1Conductore conductor= new Tmio1Conductore();
 		conductor.setCedula("01");
@@ -109,6 +117,23 @@ public class TestConductoresLogic {
 		conductor6.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		conductor6.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
+		conductorLogic.crearConductor(conductor);
+		conductorLogic.crearConductor(conductor2);
+		conductorLogic.crearConductor(conductor3);
+		conductorLogic.crearConductor(conductor4);
+		conductorLogic.crearConductor(conductor5);
+		conductorLogic.crearConductor(conductor6);
+	}
+
+	
+	 /**
+		 * Funciona, crea el conductor con cedula "89"
+		 */
+	@Test
+	public void crearConductorTest1() {
+
+		
+		assertNotNull(conductorLogic);
 		
 		Tmio1Conductore conductor7= new Tmio1Conductore();
 		conductor7.setCedula("89");
@@ -121,26 +146,17 @@ public class TestConductoresLogic {
 		conductor7.setTmio1Servicios(new ArrayList<Tmio1Servicio>());
 		conductor7.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
-		assertTrue(conductorLogic.crearConductor(conductor));
 		
 		assertTrue(conductorLogic.crearConductor(conductor7));
-		
-		assertTrue(conductorLogic.crearConductor(conductor2));
-		assertTrue(conductorLogic.crearConductor(conductor3));
-		assertTrue(conductorLogic.crearConductor(conductor4));
-		assertTrue(conductorLogic.crearConductor(conductor5));
-		assertTrue(conductorLogic.crearConductor(conductor6));
-
-		 actualizarEnTest1();
-		 actualizarEnTest2();
 		
 		
 	}
 
+
 	/**
 	 * Funciona, actualiza el conductor "01" que se habia actualizado en actualizarTest1
 	 */
-	
+	@Test
 	public void actualizarEnTest1() {
 		
 		assertNotNull(conductorLogic);
@@ -158,6 +174,7 @@ public class TestConductoresLogic {
 /**
 * Funciona, actualiza el conductor ced "01" llamado Diana a Rondal macdonald
 */
+	@Test
 public void actualizarEnTest2() {
 
 assertNotNull(conductorLogic);
@@ -308,7 +325,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 		conductor1.setTmio1ServiciosSitios(new ArrayList<Tmio1ServiciosSitio>());
 		
 		assertTrue(conductorLogic.crearConductor(conductor));
-		assertTrue(conductorLogic.crearConductor(conductor1));
+		assertFalse(conductorLogic.crearConductor(conductor1));
 		
 	}
 	
@@ -651,12 +668,16 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	 */
 	@Test
 	public void borrarTest2() {
+		
 		setupEscenario2();
 		
 		assertNotNull(conductorLogic);
 
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("03")));
-		assertTrue(conductorLogic.borrarConductor(conductorLogic.buscarConductorCedula("08")));
+		Tmio1Conductore conductor=conductorLogic.buscarConductorCedula("03");
+		
+		assertTrue(conductorLogic.borrarConductor(conductor));
+		Tmio1Conductore conductor1=conductorLogic.buscarConductorCedula("08");
+		assertTrue(conductorLogic.borrarConductor(conductor1));
 		
 				
 	}
@@ -692,7 +713,7 @@ assertTrue(conductorLogic.actualizarConductor(conductor));
 	
 	
 	/**
-	 * Funciona, no elimina el conductor con cedula "" porque no es vï¿½lido
+	 * Funciona, no elimina el conductor con cedula "" porque no es válido
 	 */
 	@Test
 	public void borrarTest5() {

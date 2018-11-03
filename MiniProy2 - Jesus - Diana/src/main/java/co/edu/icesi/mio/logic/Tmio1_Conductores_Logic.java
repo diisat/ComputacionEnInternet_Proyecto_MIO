@@ -59,7 +59,10 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 						if(cond.getFechaNacimiento()!=null) {
 							//validar fecha contratacion
 							if(cond.getFechaContratacion()!=null) {
-								ret=true;
+								
+									ret=true;
+								
+								
 							}
 						}
 					}
@@ -81,7 +84,7 @@ public class Tmio1_Conductores_Logic implements ICondutoresLogic {
 	public boolean crearConductor(Tmio1Conductore cond) {
 
 		
-				if(validarConductor(cond)) {
+				if(validarConductor(cond) && conductorDAO.findByCedula(em, cond.getCedula())==null) {
 
 					
 					try {

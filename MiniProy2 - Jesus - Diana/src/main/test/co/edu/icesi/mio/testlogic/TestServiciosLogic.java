@@ -162,13 +162,21 @@ public class TestServiciosLogic {
 		
 		assertTrue("No se creó correctamente el servicio",serviciosLogic.crearServicio(s1));
 		
-		borrarTablas();
-	}
-	
-	
-	public void borrarTablas() {
+		//borra los datos agregados en las tablas previamente
+		busesLogic.borrarBus(bus);
+		busesLogic.borrarBus(bus1);
+		
+		rutasLogic.borrarRuta(ruta1);
+		rutasLogic.borrarRuta(ruta);
+		
+		conductoreLogic.borrarConductor(conductor4);
+		conductoreLogic.borrarConductor(conductor5);
+		
 		
 	}
+	
+	
+
 	
 	/**
 	 * Funciona, no permite crear servicios con relaciones nulos
