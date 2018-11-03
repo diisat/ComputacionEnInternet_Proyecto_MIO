@@ -315,7 +315,7 @@ public class TestRutasLogic {
 		
 		List<Tmio1Ruta> rutas = rutasLogic.buscarRutaRango(new BigDecimal(2), new BigDecimal(7));
 		assertNotNull("No existen rutas en este rango de dias", rutas);		
-		assertEquals(0, rutas.size());
+		assertEquals(2, rutas.size());
 		}
 
 }

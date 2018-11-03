@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -343,26 +344,28 @@ public class TestServiciosLogic {
 				
 				
 				assertFalse("No se creó correctamente el servicio",serviciosLogic.crearServicio(s2));
-				bus.addTmio1Servicio(s2);
-				conductor4.addTmio1Servicio(s2);
-				ruta.addTmio1Servicio(s2);
 				
-				//borra los datos agregados en las tablas previamente
-//				serviciosLogic.borrarServicio(s1);
-//				busesLogic.borrarBus(bus);
-//				busesLogic.borrarBus(bus1);
+				
+				//borra los datos agregados en las tablas previamente / con esto debería arreglarse lo de buses
+//				s1PK.setIdBus(0);
+//				s2PK.setIdBus(0);
+//				bus.getTmio1Servicios().remove(0);
+//				s1.setTmio1Bus(null);
+//				s2.setTmio1Bus(null);
+//				s1.setId(null);
+//				s2.setId(null);
 //				
-//				rutasLogic.borrarRuta(ruta1);
-//				rutasLogic.borrarRuta(ruta);
-//				
-//				conductoreLogic.borrarConductor(conductor4);
-//				conductoreLogic.borrarConductor(conductor5);
-	}
 
-	public void validaFechaInicioMenorFechaFin() {
-		
+//				
+
 	}
 	
+	
+//	@Test
+//	public void validaFechaInicioMenorFechaFin() {
+//		
+//	}
+//	
 	/**
 	 * Funciona, no permite crear servicios con relaciones nulos
 	 */
