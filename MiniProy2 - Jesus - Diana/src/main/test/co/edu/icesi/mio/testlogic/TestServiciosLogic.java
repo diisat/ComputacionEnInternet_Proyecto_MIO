@@ -25,6 +25,7 @@ import co.edu.icesi.mio.model.*;
 @Rollback(false)
 public class TestServiciosLogic {
 	
+	// 
 	/**
 	 * Conexiones necesarias para crear un servicio
 	 * 
@@ -206,7 +207,7 @@ public class TestServiciosLogic {
 		
 	}
 	
-	@Test
+//	@Test
 	public void validaDisponibilidad() {
 		//Se crean los buses, conductores y rutas necesarias (escenario para crear los servicios)
 		
